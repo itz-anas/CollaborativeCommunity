@@ -88,6 +88,11 @@ export default function Sidebar() {
               <DropdownMenuItem onSelect={() => navigate("/settings")}>
                 Settings
               </DropdownMenuItem>
+              {user?.isAdmin && (
+                <DropdownMenuItem onSelect={() => navigate("/admin")}>
+                  Admin Dashboard
+                </DropdownMenuItem>
+              )}
               <DropdownMenuSeparator />
               <DropdownMenuItem 
                 className="text-red-600"
