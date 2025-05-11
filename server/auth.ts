@@ -164,7 +164,7 @@ export function setupAuth(app: Express) {
         console.log("Creating admin user...");
         await storage.createUser({
           username: "admin",
-          email: "admin@teamsync.com",
+          email: "admin@nexusapp.com",
           displayName: "System Administrator",
           password: await hashPassword("adminpass"),
           isAdmin: true,

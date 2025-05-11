@@ -136,8 +136,8 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-primary mb-2">TeamSync</h1>
-          <p className="text-gray-600">Collaborate. Communicate. Create.</p>
+          <h1 className="text-3xl font-bold text-primary mb-2">Nexus</h1>
+          <p className="text-gray-600">Connect. Collaborate. Create.</p>
         </div>
 
         <Card>
