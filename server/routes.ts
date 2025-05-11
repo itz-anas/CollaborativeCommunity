@@ -496,6 +496,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // AI routes
   setupAIRoutes(app);
+  
+  // Admin routes
+  app.get("/api/admin/users", async (req, res) => {
+    if (!req.isAuthenticated()) return res.status(401).json({ message: "Not authenticated" });
+    if (!req.user.isAdmin) return res.status(403).json({ message: "Not authorized" });
+    
+    try {
+      const users = await storage.getAllUsers();
+      res.json(users);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch users" });
+    }
+  });
+  
+  app.get("/api/admin/groups", async (req, res) => {
+    if (!req.isAuthenticated()) return res.status(401).json({ message: "Not authenticated" });
+    if (!req.user.isAdmin) return res.status(403).json({ message: "Not authorized" });
+    
+    try {
+      const groups = await storage.getAllGroups();
+      res.json(groups);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch groups" });
+    }
+  });
 
   return httpServer;
 }

@@ -41,6 +41,10 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: number, userData: Partial<User>): Promise<User | undefined>;
   
+  // Admin methods
+  getAllUsers(): Promise<UserWithoutPassword[]>;
+  getAllGroups(): Promise<GroupWithMemberCount[]>;
+  
   // Group methods
   getGroup(id: number): Promise<Group | undefined>;
   getGroupWithMemberCount(id: number): Promise<GroupWithMemberCount | undefined>;
@@ -658,6 +662,27 @@ export class MemStorage implements IStorage {
     return allActivities
       .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
       .slice(0, limit);
+  }
+  
+  // Admin methods
+  async getAllUsers(): Promise<UserWithoutPassword[]> {
+    // Return all users without passwords
+    return Array.from(this.usersMap.values()).map(user => this.stripPassword(user));
+  }
+  
+  async getAllGroups(): Promise<GroupWithMemberCount[]> {
+    // Return all groups with member counts
+    const groups = Array.from(this.groupsMap.values());
+    
+    return Promise.all(
+      groups.map(async group => {
+        const members = await this.getGroupMembers(group.id);
+        return {
+          ...group,
+          memberCount: members.length,
+        };
+      })
+    );
   }
   
   // Helper method to remove password from user object
