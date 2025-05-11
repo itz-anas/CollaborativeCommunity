@@ -27,10 +27,11 @@ import {
   type FileWithUser
 } from "@shared/schema";
 import session from "express-session";
-import createMemoryStore from "memorystore";
+import memorystore from "memorystore";
 import { randomBytes } from "crypto";
 
-const MemoryStore = createMemoryStore(session);
+// Create a memory store for session
+const MemoryStore = memorystore(session);
 
 export interface IStorage {
   // User methods
@@ -87,7 +88,7 @@ export interface IStorage {
   getRecentActivity(userId: number, limit?: number): Promise<any[]>;
   
   // Session store
-  sessionStore: session.SessionStore;
+  sessionStore: any; // Express session store
 }
 
 export class MemStorage implements IStorage {
@@ -109,7 +110,7 @@ export class MemStorage implements IStorage {
     notifications: 1
   };
   
-  sessionStore: session.SessionStore;
+  sessionStore: any; // Express session store
 
   constructor() {
     this.usersMap = new Map();
