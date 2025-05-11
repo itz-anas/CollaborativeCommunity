@@ -159,9 +159,21 @@ export function setupAuth(app: Express) {
           createdAt: new Date()
         });
         console.log("Demo user created.");
+        
+        // Create admin user
+        console.log("Creating admin user...");
+        await storage.createUser({
+          username: "admin",
+          email: "admin@teamsync.com",
+          displayName: "System Administrator",
+          password: await hashPassword("adminpass"),
+          isAdmin: true,
+          createdAt: new Date()
+        });
+        console.log("Admin user created.");
       }
     } catch (error) {
-      console.error("Failed to seed demo user:", error);
+      console.error("Failed to seed users:", error);
     }
   })();
 }
