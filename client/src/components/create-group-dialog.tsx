@@ -89,11 +89,8 @@ export default function CreateGroupDialog({ open, onOpenChange }: CreateGroupDia
         description: `${data.name} has been created`,
       });
       
-      // Notify others via WebSocket directly
-      sendWebSocketMessage("GROUP_CREATED", {
-        groupId: data.id,
-        name: data.name
-      });
+      // For WebSocket, we need a socket instance - skipping for now since we don't have access to it directly 
+      // We'll handle real-time updates through the query cache for now
     },
     onError: (error) => {
       toast({
