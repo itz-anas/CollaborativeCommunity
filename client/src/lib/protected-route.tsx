@@ -1,6 +1,7 @@
-import { useAuth } from "@/hooks/use-auth";
 import { Loader2 } from "lucide-react";
 import { Redirect, Route } from "wouter";
+import { queryClient } from "./queryClient";
+import { UserWithoutPassword } from "@shared/schema";
 
 export function ProtectedRoute({
   path,
@@ -9,7 +10,10 @@ export function ProtectedRoute({
   path: string;
   component: () => React.JSX.Element;
 }) {
-  const { user, isLoading } = useAuth();
+  // Get user data directly from query client to avoid circular dependencies
+  const user = queryClient.getQueryData<UserWithoutPassword | null>(["/api/user"]);
+  const userQueryState = queryClient.getQueryState(["/api/user"]);
+  const isLoading = userQueryState?.status === "pending";
 
   if (isLoading) {
     return (

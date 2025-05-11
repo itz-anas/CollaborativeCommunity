@@ -8,10 +8,10 @@ import { WebSocketProvider } from "./hooks/use-websocket";
 
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
-    <WebSocketProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <WebSocketProvider>
         <App />
-      </AuthProvider>
-    </WebSocketProvider>
+      </WebSocketProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );

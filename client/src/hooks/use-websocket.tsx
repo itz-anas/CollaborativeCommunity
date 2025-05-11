@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
-import { useAuth } from "./use-auth";
 import { createWebSocketConnection, sendWebSocketMessage } from "@/lib/websocket";
-import { WebSocketMessage } from "@shared/schema";
+import { WebSocketMessage, UserWithoutPassword } from "@shared/schema";
 import { useToast } from "./use-toast";
 import { queryClient } from "@/lib/queryClient";
 
@@ -13,10 +12,12 @@ interface WebSocketContextType {
 const WebSocketContext = createContext<WebSocketContextType | null>(null);
 
 export function WebSocketProvider({ children }: { children: ReactNode }) {
-  const { user } = useAuth();
   const [connected, setConnected] = useState(false);
   const socketRef = useRef<WebSocket | null>(null);
   const { toast } = useToast();
+  
+  // Get user from query client cache directly to avoid circular dependencies
+  const user = queryClient.getQueryData<UserWithoutPassword | null>(["/api/user"]);
 
   // Setup WebSocket connection when user is authenticated
   useEffect(() => {
