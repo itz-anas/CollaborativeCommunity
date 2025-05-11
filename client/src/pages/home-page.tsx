@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { Loader2, Edit, Upload, UserPlus, Search } from "lucide-react";
-import { useAuth } from "@/hooks/use-auth";
-import { GroupWithMemberCount, FileWithUser } from "@shared/schema";
+import { GroupWithMemberCount, FileWithUser, UserWithoutPassword } from "@shared/schema";
+import { queryClient } from "@/lib/queryClient";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,7 +20,9 @@ import { getInitials } from "@/lib/utils";
 export default function HomePage() {
   const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
   const [location, navigate] = useLocation();
-  const { user } = useAuth();
+  
+  // Get user data directly from query client to avoid circular dependencies
+  const user = queryClient.getQueryData<UserWithoutPassword | null>(["/api/user"]);
 
   // Fetch groups
   const { data: groups, isLoading: isLoadingGroups } = useQuery<GroupWithMemberCount[]>({

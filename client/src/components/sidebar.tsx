@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { useAuth } from "@/hooks/use-auth";
-import { GroupWithMemberCount } from "@shared/schema";
+import { GroupWithMemberCount, UserWithoutPassword } from "@shared/schema";
 import { getInitials } from "@/lib/utils";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -22,7 +23,28 @@ import Notifications from "./notifications";
 
 export default function Sidebar() {
   const [location, navigate] = useLocation();
-  const { user, logoutMutation } = useAuth();
+  const { toast } = useToast();
+  
+  // Get user data directly from query client to avoid circular dependencies
+  const user = queryClient.getQueryData<UserWithoutPassword | null>(["/api/user"]);
+  
+  // Create logout mutation
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/logout");
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(["/api/user"], null);
+      navigate("/auth");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Logout failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
   const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
   
   // Fetch groups
