@@ -4,10 +4,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { apiRequest } from "@/lib/queryClient";
-import { queryClient } from "@/lib/queryClient";
-import { useWebSocket } from "@/hooks/use-websocket";
-import { insertGroupSchema } from "@shared/schema";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { sendWebSocketMessage } from "@/lib/websocket";
+import { insertGroupSchema, UserWithoutPassword } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 
 import {
@@ -52,8 +51,10 @@ interface CreateGroupDialogProps {
 export default function CreateGroupDialog({ open, onOpenChange }: CreateGroupDialogProps) {
   const [location, navigate] = useLocation();
   const [avatarInitial, setAvatarInitial] = useState("");
-  const { sendMessage } = useWebSocket();
   const { toast } = useToast();
+  
+  // Get user data directly from query client to avoid circular dependencies
+  const user = queryClient.getQueryData<UserWithoutPassword | null>(["/api/user"]);
 
   const form = useForm<CreateGroupFormValues>({
     resolver: zodResolver(createGroupSchema),
@@ -88,8 +89,8 @@ export default function CreateGroupDialog({ open, onOpenChange }: CreateGroupDia
         description: `${data.name} has been created`,
       });
       
-      // Notify others via WebSocket
-      sendMessage("GROUP_CREATED", {
+      // Notify others via WebSocket directly
+      sendWebSocketMessage("GROUP_CREATED", {
         groupId: data.id,
         name: data.name
       });

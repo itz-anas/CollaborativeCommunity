@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { useAuth } from "@/hooks/use-auth";
 import { getInitials } from "@/lib/utils";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { GroupWithMemberCount, UserWithoutPassword } from "@shared/schema";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -19,13 +22,32 @@ import {
   Users,
   FileText,
 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { GroupWithMemberCount } from "@shared/schema";
 import CreateGroupDialog from "./create-group-dialog";
 
 export default function MobileNavigation() {
   const [location, navigate] = useLocation();
-  const { user, logoutMutation } = useAuth();
+  const { toast } = useToast();
+  
+  // Get user data directly from query client to avoid circular dependencies
+  const user = queryClient.getQueryData<UserWithoutPassword | null>(["/api/user"]);
+  
+  // Create logout mutation
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/logout");
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(["/api/user"], null);
+      navigate("/auth");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Logout failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
