@@ -39,13 +39,14 @@
 
 ## 🚀 Getting Started
 
-### 1️⃣ Clone the Repository
+###  Clone the Repository
   git clone https://github.com/itz-anas/CollaborativeCommunity.git
   cd CollaborativeCommunity
   
-  Install Dependencies
+### Install Dependencies
   npm install
-  3️⃣ Run the Dev Server
+  
+### Run the Dev Server
   npm dev
   Visit the app at: http://localhost:5000
 
