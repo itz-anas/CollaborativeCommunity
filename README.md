@@ -11,6 +11,8 @@ Welcome to **Nexus**, a full-stack collaborative platform where users can connec
 ## 🚀 Live Demo
 
 👉 [Click to View Live](https://cfmt32-5000.csb.app)
+To enjoy the complete website run this repository on "SANDBOX"
+
 
 > _Note: GitHub Pages only shows frontend. Full app runs on sandbox or full-stack platforms like Render._
 
