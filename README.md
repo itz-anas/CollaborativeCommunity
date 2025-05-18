@@ -10,7 +10,7 @@ Welcome to **Nexus**, a full-stack collaborative platform where users can connec
 
 ## 🚀 Live Demo
 
-👉 [Click to View Live](https://cfmt32-5000.csb.app)
+👉 [Click to View Live](https://githubbox.com/itz-anas/CollaborativeCommunity)
 To enjoy the complete website run this repository on "SANDBOX"
 
 
