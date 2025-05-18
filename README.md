@@ -1,58 +1,59 @@
 # 🚀 CollaborativeCommunity – TeamSync
 
-[![Deployed](https://img.shields.io/badge/Live-Demo-blue?logo=vercel&labelColor=black)](https://cfmt32-5000.csb.app)
-[![GitHub License](https://img.shields.io/github/license/itz-anas/CollaborativeCommunity)](https://github.com/itz-anas/CollaborativeCommunity/blob/main/LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/itz-anas/CollaborativeCommunity?style=social)](https://github.com/itz-anas/CollaborativeCommunity)
-[![Made by Anas](https://img.shields.io/badge/Made%20by-Anas-blueviolet)](https://github.com/itz-anas)
+# Nexus – Collaborative Community Platform
 
-**CollaborativeCommunity** (branded as **TeamSync**) is a modern, real-time collaboration platform for developers, teams, and organizations. It enables seamless communication, file sharing, AI-enhanced support, and group-based document management — all in one place.
+> Connect. Collaborate. Create.
 
-> **"Connect. Collaborate. Create."**
+Welcome to **Nexus**, a full-stack collaborative platform where users can connect, create groups, share documents, and work together in real time. Built with modern web technologies to offer seamless communication and team productivity.
 
 ---
 
-## 📸 Screenshots
+## 🚀 Live Demo
 
-### 🔐 Login Page
-![Login UI](./assets/login-preview.png)
+👉 [Click to View Live](https://cfmt32-5000.csb.app)
 
-### 📊 Admin Dashboard
-![Dashboard UI](./assets/dashboard-preview.png)
+> _Note: GitHub Pages only shows frontend. Full app runs on sandbox or full-stack platforms like Render._
 
 ---
 
-## 🌟 Key Features
+## 🛠️ Tech Stack
 
-- 🔐 **Secure Auth** – Traditional login + Social login (Google, GitHub, Apple)
-- 💬 **Real-time Chat & Updates** – Powered by WebSockets
-- 📂 **Group & Document Management** – Create teams, upload files, collaborate
-- 🧠 **AI Assistance** – Smart suggestions & message enhancement
-- 📈 **Recent Activity & Quick Actions** – Real-time dashboard
-- 🎨 **Modern Tech Stack** – TypeScript, Express, TailwindCSS, Vite, Drizzle ORM
-
----
-
-## 🧱 Project Structure
-
+- **Frontend**: Vite + TypeScript + TailwindCSS
+- **Backend**: Node.js + Express
+- **Authentication**: JWT
+- **UI Framework**: Chakra UI (or similar)
+- **Realtime**: WebSockets
+- **Build Tools**: Vite, Drizzle ORM, PostCSS
 
 ---
 
-## 🚀 Getting Started
+## 📂 Features
 
-###  Clone the Repository
-  git clone https://github.com/itz-anas/CollaborativeCommunity.git
-  cd CollaborativeCommunity
-  
-### Install Dependencies
-  npm install
-  
-### Run the Dev Server
-  npm dev
-  Visit the app at: http://localhost:5000
+- ✅ Login / Signup with secure auth
+- ✅ Create & manage groups
+- ✅ Upload & share documents
+- ✅ Real-time chat & updates (WebSocket)
+- ✅ Role-based access (Admin, User, etc.)
+- ✅ Modern responsive UI
 
-🙋‍♂️ Author
+---
+
+## 🧑‍💻 Run Locally
+
+
+# Clone the repo
+git clone https://github.com/itz-anas/CollaborativeCommunity.git
+cd CollaborativeCommunity
+
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+👨‍💻 Author
 Anas 
-👨‍💻 GitHub: @itz-anas
-📧 Email: anasali0029@gmail.com
+📧 anasali0029@gmail.com
+🌐 GitHub Profile
+itz-anas
 
-Feel free to reach out for collaborations, contributions, or just to say hi!
